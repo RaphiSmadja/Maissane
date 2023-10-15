@@ -5,7 +5,7 @@ const UserController = {
     async getAllUsers(req, res) {
         try {
             const users = await User.findAll();
-            res.json(users);
+            res.render('users', {users: users});
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Erreur lors de la récupération des utilisateurs' });
@@ -17,7 +17,7 @@ const UserController = {
         const { name, email, password } = req.body;
         try {
             const user = await User.create({ name, email, password });
-            res.status(201).json(user);
+            res.status(201).render('confirmation', {firstname: name});
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Erreur lors de la création de l\'utilisateur' });
